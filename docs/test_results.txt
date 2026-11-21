@@ -1,0 +1,47 @@
+=== Senaryo 1: Normal calisma ===
+  [PASS] en az 2 child baslatildi (logda Started satirlari)
+  [PASS] child'lar watchdog'un cocugu olarak calisiyor
+  [PASS] PID bilgileri loga yazildi
+=== Senaryo 2: Beklenmedik sonlanma (SIGKILL) + restart ===
+  [PASS] oldurulecek PID dogrulandi (worker + parent=watchdog)
+  [PASS] beklenmedik sonlanma loglandi (signal 9)
+  [PASS] worker-loop yeniden baslatildi
+=== Senaryo 3: Restart limiti (worker-crash) ===
+  [PASS] restart limitine ulasildi ve vazgecildi
+  [PASS] tam 3 restart yapildi, daha fazla degil
+=== Senaryo 4: Normal sonlanma (exit 0) ===
+  [PASS] worker-normal exit(0) ile bitti, restart edilmedi
+  [PASS] worker-normal icin restart satiri yok
+=== Senaryo 5: Durum raporu (SIGUSR1) ===
+  [PASS] rapor basligi loga yazildi
+  [PASS] her child icin satir var (3 worker)
+  [PASS] durumlar dogru (RUNNING/EXITED_NORMAL/FAILED)
+=== Senaryo 6: Graceful shutdown (SIGTERM) ===
+  [PASS] watchdog 10 sn icinde kapandi
+  [PASS] cikis kodu 0
+  [PASS] kapanis loglandi
+  [PASS] artik worker process'i kalmadi
+  [PASS] zombie (defunct) process kalmadi
+=== Senaryo 6b: Ctrl+C (SIGINT) ayri test ===
+  [PASS] SIGINT ile kapandi
+  [PASS] cikis kodu 0
+  [PASS] tum child'lar SIGTERM aldi
+  [PASS] worker kalmadi
+=== Senaryo 6c: SIGTERM'e cevap vermeyen child -> SIGKILL timeout ===
+  [PASS] timeout sonrasi SIGKILL gonderildi (<=10 sn)
+  [PASS] watchdog yine de kapandi
+  [PASS] worker kalmadi
+=== Senaryo 7: Log dogrulama ===
+  [PASS] her satirda zaman damgasi var
+  [PASS] logda olay var: Watchdog started
+  [PASS] logda olay var: Started worker-
+  [PASS] logda olay var: terminated unexpectedly
+  [PASS] logda olay var: Restarted worker-
+  [PASS] logda olay var: STATUS REPORT
+  [PASS] logda olay var: Shutdown requested
+  [PASS] logda olay var: Sent SIGTERM
+  [PASS] logda olay var: All children reaped
+
+============================================
+ SONUC: 34 gecti, 0 kaldi
+============================================
