@@ -17,4 +17,8 @@ int  sm_install_handlers(void);
  * (sigsuspend). Race condition olmasin diye pause() yerine bu. */
 void sm_wait_for_signal(void);
 
+/* fork() sonrasi CHILD icinde, exec()'ten once cagrilir:
+ * bloklu sinyal maskesini eski haline getirir (maske exec'te miras kalir). */
+void sm_unblock_for_child(void);
+
 #endif
