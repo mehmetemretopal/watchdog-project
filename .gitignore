@@ -1,0 +1,7 @@
+# Derleme ciktilari
+build/
+watchdog
+worker
+
+# Calisma zamani
+*.log
